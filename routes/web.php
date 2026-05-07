@@ -62,12 +62,20 @@ Route::middleware(['auth', 'admin.only'])->group(function () {
     })->name('admin.dashboard');
 });
 
-/*
-|--------------------------------------------------------------------------
-| Admin Redirect
-|--------------------------------------------------------------------------
-*/
-
 Route::get('/admin', function () {
     return redirect()->route('admin.dashboard');
 })->middleware(['auth', 'admin.only']);
+
+/*
+|--------------------------------------------------------------------------
+| Finance Routes
+|--------------------------------------------------------------------------
+*/
+
+Route::middleware(['auth'])->group(function () {
+
+    Route::get('/laporan', function () {
+        return view('laporan');
+    })->name('laporan');
+
+});
