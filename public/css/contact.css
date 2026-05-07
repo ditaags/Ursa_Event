@@ -1,0 +1,83 @@
+.contact-page-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    /* Ubah 120px menjadi 40px agar lebih rapat ke header */
+    padding: 40px 20px 80px; 
+    text-align: left;
+}
+
+.contact-header {
+    margin-top: 0; 
+    margin-bottom: 50px;
+}
+
+.contact-header h1 {
+    font-size: 40px;
+    font-weight: 800;
+    color: #1a1a1a;
+    margin-bottom: 5px; /* Rapatkan jarak judul ke sub-judul */
+}
+
+/* Mengatur Grid agar kartu berjajar rapi */
+.contact-grid-modern {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.info-card {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 25px;
+    border: 1px solid #f0f0f0;
+    transition: all 0.3s ease;
+    /* Memberikan efek bayangan agar terlihat 'mahal' */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+}
+
+.info-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(185, 28, 28, 0.1);
+    border-color: #fca5a5;
+}
+
+.info-icon {
+    background: #b91c1c; /* Warna merah khas Ursa */
+    color: white;
+    width: 65px;
+    height: 65px;
+    border-radius: 20px; /* Sudut agak kotak tapi melengkung */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 26px;
+    margin-bottom: 25px;
+}
+
+.info-card h3 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: #1a1a1a;
+}
+
+.info-card p {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+.info-subtext {
+    font-size: 14px;
+    color: #888;
+}
+
+.info-label {
+    display: inline-block;
+    margin-top: 20px;
+    font-weight: 700;
+    color: #b91c1c;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}

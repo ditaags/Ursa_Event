@@ -1,0 +1,62 @@
+.footer-description {
+    font-size: 15px;
+    line-height: 1.8;
+    font-weight: 500;
+    opacity: 0.9;
+    /* Memberikan sedikit ruang atas agar sejajar dengan judul kolom lainnya */
+    margin-top: 5px; 
+}
+
+/* Kode lainnya tetap sama seperti sebelumnya */
+.main-footer {
+    background-color: #b91c1c;
+    color: white;
+    padding: 60px 0;
+    width: 100%;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1.5fr;
+    gap: 40px;
+    padding: 0 20px;
+}
+
+.footer-column h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 25px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.footer-column h3::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 40px;
+    height: 2px;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.footer-column ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-column ul li {
+    margin-bottom: 15px;
+}
+
+.footer-column ul li a {
+    color: white;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.footer-column ul li a:hover {
+    text-decoration: underline;
+}

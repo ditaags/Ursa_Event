@@ -1,0 +1,103 @@
+/* Container Utama */
+.event-container {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 0 20px;
+}
+
+.section-title {
+    font-size: 24px;
+    font-weight: 800;
+    margin-bottom: 30px;
+}
+
+/* Grid System */
+.event-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+/* Link Wrapper */
+.event-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.event-card-link:hover {
+    transform: translateY(-8px); /* Sedikit lebih tinggi agar terasa interaksinya */
+}
+
+/* Event Card */
+.event-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    height: 100%; /* Memastikan tinggi kartu sama dalam satu baris */
+}
+
+/* Image Styling */
+.card-image img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover; /* Perbaikan dari typo sebelumnya */
+    display: block;
+}
+
+/* Content Body */
+.card-body {
+    padding: 20px;
+}
+
+.event-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #1a1a1a;
+    line-height: 1.4;
+}
+
+.event-date {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.event-price {
+    font-size: 18px;
+    font-weight: 800;
+    color: #000;
+    margin-bottom: 20px;
+}
+
+/* Card Footer */
+.card-footer {
+    border-top: 1px dashed #eee;
+    padding-top: 15px;
+    margin-top: 10px;
+}
+
+.organizer-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.org-logo {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.org-name {
+    font-size: 14px;
+    color: #555;
+    font-weight: 600;
+}
