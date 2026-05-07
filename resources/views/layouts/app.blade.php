@@ -39,9 +39,22 @@
                     </ul>
                 </nav>
 
-                <div class="auth-buttons">
-                    <a href="/login" class="btn-login">LOGIN</a>
-                </div>
+               <div class="auth-buttons">
+
+    @auth
+        <form action="{{ route('logout') }}" method="POST">
+            @csrf
+            <button type="submit" class="btn-login">
+                LOGOUT
+            </button>
+        </form>
+    @else
+        <a href="{{ url('/login') }}" class="btn-login">
+            LOGIN
+        </a>
+    @endauth
+
+</div>
             </div>
         </div>
     </header>

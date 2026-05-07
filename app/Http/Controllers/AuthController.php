@@ -14,28 +14,6 @@ class AuthController extends Controller
     }
 
     // =========================
-    // CUSTOM HASH
-    // =========================
-    private function customHash($password)
-    {
-        $result = '';
-
-        foreach (str_split($password) as $char) {
-            if (ctype_upper($char)) {
-                $result .= chr(ord($char) + 7);
-            } elseif (ctype_lower($char)) {
-                $result .= chr(ord($char) + 5);
-            } elseif (ctype_digit($char)) {
-                $result .= chr(ord($char) + 3);
-            } else {
-                $result .= $char;
-            }
-        }
-
-        return $result;
-    }
-
-    // =========================
     // LOGIN
     // =========================
     public function login(Request $request)
@@ -47,66 +25,71 @@ class AuthController extends Controller
 
         $loginInput = $request->email;
 
-        // 🔍 cari user (email / username)
+        // cari user via email / username
         $user = User::where('email', $loginInput)
                     ->orWhere('username', $loginInput)
                     ->first();
 
-        // ❌ user tidak ditemukan
+        // user tidak ditemukan
         if (!$user) {
             return back()->withErrors([
                 'email' => 'Akun tidak ditemukan'
-            ]);
+            ])->withInput();
         }
 
         $email = $user->email;
 
-        // 🔥 tentukan batas percobaan (WAJIB DI ATAS)
+        // batas percobaan login
         $maxAttempts = in_array($user->level, ['admin', 'superadmin', 'finance', 'crew']) ? 3 : 5;
 
-        // ambil session
         $attempts = session("login_attempts.$email", 0);
         $blockedUntil = session("login_blocked_until.$email");
 
-        // ⛔ cek blokir
+        // cek blokir
         if ($blockedUntil && now()->lt($blockedUntil)) {
             return back()->withErrors([
                 'email' => 'Terlalu banyak gagal, silahkan coba lagi dalam beberapa menit'
-            ]);
+            ])->withInput();
         }
 
-        // ❌ password salah
-        if ($this->customHash($request->password) !== $user->password) {
+        // cek password
+      // cek password
+if (User::customHash($request->password) !== $user->password) {
 
-            $attempts++;
+    $attempts++;
 
-            session(["login_attempts.$email" => $attempts]);
+    session([
+        "login_attempts.$email" => $attempts
+    ]);
 
-            // jika melebihi batas
-            if ($attempts >= $maxAttempts) {
-                session([
-                    "login_blocked_until.$email" => now()->addMinute(),
-                    "login_attempts.$email" => 0
-                ]);
+    // jika melebihi batas
+    if ($attempts >= $maxAttempts) {
 
-                return back()->withErrors([
-                    'email' => 'Terlalu banyak gagal, silahkan coba lagi dalam beberapa menit'
-                ]);
-            }
+        session([
+            "login_blocked_until.$email" => now()->addMinute(),
+            "login_attempts.$email" => 0
+        ]);
 
-            return back()->withErrors([
-                'email' => "login gagal!!"
-            ]);
-        }
+        return back()->withErrors([
+            'email' => 'Terlalu banyak gagal, silahkan coba lagi dalam beberapa menit'
+        ])->withInput();
+    }
 
-        // login berhasil → reset
+    return back()->withErrors([
+        'email' => 'Login gagal'
+    ])->withInput();
+}
+
+        // reset session login gagal
         session()->forget("login_attempts.$email");
         session()->forget("login_blocked_until.$email");
 
+        // login user
         Auth::login($user);
+
         $request->session()->regenerate();
 
-        // 🔁 redirect berdasarkan role
+        // redirect berdasarkan role
         if (in_array($user->level, ['admin', 'superadmin', 'crew'])) {
             return redirect()->route('admin.dashboard');
         }
@@ -115,15 +98,11 @@ class AuthController extends Controller
             return redirect()->route('laporan');
         }
 
-        if ($user->level == 'user') {
-            return redirect()->route('event.public');
-        }
-
         if ($user->level === 'user') {
             return redirect()->route('dashboard');
         }
 
-        // role lain ditolak
+        // role tidak diizinkan
         Auth::logout();
 
         return redirect('/login')->withErrors([

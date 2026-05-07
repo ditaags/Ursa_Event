@@ -10,15 +10,20 @@ class LoginMiddleware
 {
     public function handle(Request $request, Closure $next)
     {
+        // belum login
         if (!Auth::check()) {
             return redirect('/login');
         }
 
         $user = Auth::user();
 
+        // hanya admin, superadmin, crew
         if (!in_array($user->level, ['admin', 'superadmin', 'crew'])) {
-            return redirect()->route('admin.dashboard');
+
+            // user biasa ditolak
+            return redirect()->route('dashboard');
         }
+
         return $next($request);
     }
 }
