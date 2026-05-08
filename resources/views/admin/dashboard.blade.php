@@ -1,4 +1,4 @@
-@extends('layouts.admin_master')
+@extends('admin_master')
 
 @section('content')
     <div class="welcome-card">
