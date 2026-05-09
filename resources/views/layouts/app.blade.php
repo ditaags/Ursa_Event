@@ -24,40 +24,38 @@
 <body style="font-family: 'Inter', sans-serif;">
 
     {{-- Bagian Header --}}
-    <header class="main-header">
-        <div class="container-header">
-            <div class="logo">
-                <a href="/">
-                    <img src="{{ asset('images/logo.jpeg') }}" alt="Ursa Logo">
-                </a>
-            </div>
+ <header class="main-header">
+    <div class="container-header">
+        <div class="logo">
+            <a href="/">
+                <img src="{{ asset('images/logo.jpeg') }}" alt="Ursa Logo">
+            </a>
+        </div>
 
-            <div class="header-right">
-                <nav class="nav-menu">
-                    <ul>
-                        <li><a href="{{ url('/') }}">BERANDA</a></li>
-                        <li><a href="{{ url('/event') }}">EVENT</a></li>
-                        <li><a href="{{ url('/kontak') }}">KONTAK KAMI</a></li>
-                    </ul>
-                </nav>
+        <div class="header-right">
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="{{ url('/') }}">BERANDA</a></li>
+                    <li><a href="{{ url('/event') }}">EVENT</a></li>
+                    <li><a href="{{ url('/kontak') }}">KONTAK KAMI</a></li>
+                </ul>
+            </nav>
 
-                <div class="auth-buttons">
-                    @auth
-                        <form action="{{ route('logout') }}" method="POST" style="display: inline;">
-                            @csrf
-                            <button type="submit" class="btn-login" style="cursor: pointer;">
-                                LOGOUT
-                            </button>
-                        </form>
-                    @else
-                        <a href="{{ route('login') }}" class="btn-login">
-                            LOGIN
-                        </a>
-                    @endauth
-                </div>
+            <div class="auth-buttons">
+                @guest
+                    <a href="{{ route('login') }}" class="btn-login">LOGIN</a>
+                @else
+                    <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+                        @csrf
+                        <button type="submit" class="btn-login logout-style">
+                            LOGOUT
+                        </button>
+                    </form>
+                @endguest
             </div>
         </div>
-    </header>
+    </div>
+</header>
 
     {{-- Bagian Konten Dinamis --}}
     <main>

@@ -3,33 +3,43 @@
         <img src="{{ asset('images/logo.jpeg') }}" alt="Logo">
         <span>URSA EVENT</span>
     </div>
+    
     <ul class="sidebar-menu">
-        <li><a href="{{ route('admin.dashboard') }}" class="active">Beranda</a></li>
-        <li><a href="#">Edit Beranda Web</a></li>
-        <li><a href="#">Kontak Kami</a></li>
-        <li><a href="#">Daftar Event</a></li>
-        <li><a href="#">Tambah Event</a></li>
-        <li><a href="#">Admin</a></li>
-        <li><a href="#">Tambah Admin</a></li>
+        <li class="{{ Request::is('admin/dashboard') ? 'active' : '' }}">
+            <a href="{{ route('admin.dashboard') }}">Beranda</a>
+        </li>
 
-        <li>
+        <li class="{{ Request::is('admin/edit-beranda') ? 'active' : '' }}">
+            <a href="{{ route('admin.edit_beranda') }}">Edit Beranda Web</a>
+        </li>
+
+        <li class="{{ Request::is('admin/edit-kontak') ? 'active' : '' }}">
+            <a href="{{ route('admin.edit_kontak') }}">Kontak Kami</a>
+        </li>
+
+        <li class="{{ Request::is('admin/events') && !Request::is('admin/events/create') ? 'active' : '' }}">
+            <a href="{{ route('admin.events.index') }}">Daftar Event</a>
+        </li>
+
+        {{-- Perbaikan: Menambahkan Route dan State Active untuk Tambah Event --}}
+        <li class="{{ Request::is('admin/events/create') ? 'active' : '' }}">
+            <a href="{{ route('admin.events.create') }}">Tambah Event</a>
+        </li>
+
+        <li class="{{ Request::is('admin/users') ? 'active' : '' }}">
+            <a href="{{ route('admin.users.index') }}">Admin</a>
+        </li>
+        <li class="{{ Request::is('admin/users/create') ? 'active' : '' }}">
+            <a href="{{ route('admin.users.create') }}">Tambah Admin</a>
+        </li>
+
+        <li class="logout-section">
             <form action="{{ route('logout') }}" method="POST" id="logout-form" style="display: none;">
                 @csrf
             </form>
             <a href="#" class="logout-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                Logout
+                <i class="fas fa-sign-out-alt"></i> Logout
             </a>
         </li>
     </ul>
 </div>
-
-<style>
-    /* Tambahkan sedikit CSS agar link logout berwarna merah atau berbeda */
-    .logout-link {
-        color: #ff4d4d !important; /* Warna merah untuk tanda logout */
-        cursor: pointer;
-    }
-    .logout-link:hover {
-        background-color: rgba(255, 77, 77, 0.1) !important;
-    }
-</style>

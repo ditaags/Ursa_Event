@@ -1,0 +1,61 @@
+/* public/css/admin-users.css */
+.admin-container {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.admin-header {
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    margin-bottom: 25px;
+}
+
+.admin-table {
+    width: 100%; 
+    border-collapse: collapse;
+}
+
+.admin-table thead tr {
+    background: #f8fafc; 
+    text-align: left; 
+    border-bottom: 2px solid #eee;
+}
+
+.admin-table th, .admin-table td {
+    padding: 15px;
+}
+
+.admin-table tbody tr {
+    border-bottom: 1px solid #eee;
+}
+
+.btn-add {
+    background: #e63946; 
+    color: white; 
+    padding: 10px 20px; 
+    border-radius: 8px; 
+    text-decoration: none; 
+    font-weight: 600;
+}
+
+.btn-edit {
+    background: #334155; 
+    color: white; 
+    padding: 6px 12px; 
+    border-radius: 5px; 
+    text-decoration: none; 
+    font-size: 13px;
+}
+
+.btn-delete {
+    background: #e63946; 
+    color: white; 
+    border: none; 
+    padding: 6px 12px; 
+    border-radius: 5px; 
+    cursor: pointer;
+    font-size: 13px;
+}
