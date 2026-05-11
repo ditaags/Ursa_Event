@@ -9,7 +9,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->string('id', 20)->primary(); // string ID max 20
+            $table->string('id')->primary(); // string ID max 20
             $table->string('name');
             $table->string('username')->unique();
             $table->string('email')->unique();
@@ -24,7 +24,7 @@ return new class extends Migration
         // ⚠️ IMPORTANT: sesuaikan dengan ID string
         Schema::create('sessions', function (Blueprint $table) {
             $table->string('id')->primary();
-            $table->string('user_id', 20)->nullable()->index(); // FIX (bukan foreignId)
+            $table->string('user_id')->nullable()->index(); // FIX (bukan foreignId)
             $table->string('ip_address', 45)->nullable();
             $table->text('user_agent')->nullable();
             $table->longText('payload');

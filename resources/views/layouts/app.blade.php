@@ -1,3 +1,20 @@
+@php
+
+use Illuminate\Support\Facades\File;
+
+$base = storage_path('app/content/');
+
+$footerContent = (object)[
+    'terms' => File::exists($base . 'terms.txt')
+        ? File::get($base . 'terms.txt')
+        : '',
+
+    'rules' => File::exists($base . 'rules.txt')
+        ? File::get($base . 'rules.txt')
+        : '',
+];
+
+@endphp
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -41,18 +58,6 @@
                 </ul>
             </nav>
 
-            <div class="auth-buttons">
-                @guest
-                    <a href="{{ route('login') }}" class="btn-login">LOGIN</a>
-                @else
-                    <form action="{{ route('logout') }}" method="POST" style="display: inline;">
-                        @csrf
-                        <button type="submit" class="btn-login logout-style">
-                            LOGOUT
-                        </button>
-                    </form>
-                @endguest
-            </div>
         </div>
     </div>
 </header>
@@ -82,13 +87,19 @@
 
             <div class="footer-column">
                 <ul>
-                    <li><a href="{{ url('/terms') }}">Syarat & Ketentuan</a></li>
+                 <li>
+    <strong>Syarat & Ketentuan</strong><br>
+    {{ $footerContent->terms }}
+</li>
                 </ul>
             </div>
 
             <div class="footer-column">
                 <ul>
-                    <li><a href="{{ url('/privacy') }}">Kebijakan & Privasi</a></li>
+                   <li>
+    <strong>Kebijakan & Privasi</strong><br>
+    {{ $footerContent->rules }}
+</li>
                 </ul>
             </div>
         </div>

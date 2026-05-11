@@ -2,14 +2,17 @@
 
 @section('content')
     {{-- Hero Section dengan Overlay yang lebih gelap agar teks terbaca --}}
-    <section class="hero-section">
-        <div class="hero-overlay">
-            <div class="hero-content">
-                <h1>Platform resmi untuk informasi event kami yang bergerak di bidang teknologi dan inovasi digital.</h1>
-                <a href="/events" class="btn-eksplorasi">Eksplorasi Event</a>
-            </div>
+   <section class="hero-section">
+    <div class="hero-overlay">
+        <div class="hero-content">
+           <h1>{{ $content->title }}</h1>
+
+            <a href="{{ url('/event') }}" class="btn-eksplorasi">
+                Eksplorasi Event
+            </a>
         </div>
-    </section>
+    </div>
+</section>
 
     {{-- Gunakan Container yang sama dengan halaman Kontak/Event agar Sejajar Kiri --}}
     <section class="events-page-container">

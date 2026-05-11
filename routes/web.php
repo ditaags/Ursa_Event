@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\EventController; 
 use App\Http\Controllers\Admin\UserController;
+use Illuminate\Support\Facades\File;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,7 +14,25 @@ use App\Http\Controllers\Admin\UserController;
 */
 
 Route::get('/', function () {
-    return view('dashboard');
+
+    $base = storage_path('app/content/');
+
+    $content = (object)[
+        'title' => File::exists($base . 'title.txt')
+            ? File::get($base . 'title.txt')
+            : '',
+
+        'terms' => File::exists($base . 'terms.txt')
+            ? File::get($base . 'terms.txt')
+            : '',
+
+        'rules' => File::exists($base . 'rules.txt')
+            ? File::get($base . 'rules.txt')
+            : '',
+    ];
+
+    return view('dashboard', compact('content'));
+
 })->name('dashboard');
 
 Route::get('/event', function () {
