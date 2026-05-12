@@ -1,103 +1,101 @@
-/* Container Utama */
-.event-container {
-    max-width: 1200px;
-    margin: 50px auto;
+/* ============================================================
+   1. BASE STYLE & HALAMAN LIST (SEMUA EVENT)
+   ============================================================ */
+.events-page-container {
+    max-width: 1000px;
+    margin: 60px auto;
     padding: 0 20px;
 }
 
-.section-title {
-    font-size: 24px;
-    font-weight: 800;
-    margin-bottom: 30px;
+.events-list-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
 }
 
-/* Grid System */
-.event-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 25px;
-}
-
-/* Link Wrapper */
-.event-card-link {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-    transition: transform 0.3s ease;
-}
-
-.event-card-link:hover {
-    transform: translateY(-8px); /* Sedikit lebih tinggi agar terasa interaksinya */
-}
-
-/* Event Card */
-.event-card {
-    background: white;
-    border-radius: 20px;
+/* Kartu Utama (Default: Horizontal untuk List) */
+.event-item-card, .event-card {
+    display: flex;
+    background: #ffffff;
+    border-radius: 24px;
     overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    height: 100%; /* Memastikan tinggi kartu sama dalam satu baris */
+    text-decoration: none;
+    color: #1a1a1a;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1px solid rgba(0,0,0,0.02);
 }
 
-/* Image Styling */
-.card-image img {
+.event-item-card:hover, .event-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 50px rgba(230, 57, 70, 0.1);
+}
+
+/* Poster untuk Halaman List */
+.event-item-poster, .event-card-image {
+    flex: 0 0 300px;
+    position: relative;
+    overflow: hidden;
+}
+
+.event-item-poster img, .event-card-image img {
     width: 100%;
-    aspect-ratio: 16 / 9;
-    object-fit: cover; /* Perbaikan dari typo sebelumnya */
+    height: 100%;
+    object-fit: cover;
+    object-position: top; /* Agar poster event tidak kepotong kepalanya */
     display: block;
 }
 
-/* Content Body */
-.card-body {
+/* Detail untuk Halaman List */
+.event-item-details, .event-card-body {
+    flex: 1;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* ============================================================
+   2. KHUSUS DASHBOARD SLIDER (REKOMENDASI EVENT)
+   ============================================================ */
+.event-slider .event-card {
+    flex-direction: column; /* Gambar di atas, teks di bawah */
+    min-width: 300px;
+    height: auto;
+}
+
+.event-slider .event-card-image {
+    flex: none; /* Matikan flex-basis 300px dari style list */
+    width: 100%;
+    height: 200px; /* Tinggi kotak poster di slider */
+}
+
+.event-slider .event-card-body {
     padding: 20px;
 }
 
-.event-title {
+.event-slider .event-card-body h3 {
     font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 10px;
-    color: #1a1a1a;
-    line-height: 1.4;
+    margin-bottom: 8px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
-.event-date {
-    color: #666;
-    font-size: 14px;
-    margin-bottom: 15px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.event-price {
-    font-size: 18px;
-    font-weight: 800;
-    color: #000;
-    margin-bottom: 20px;
-}
-
-/* Card Footer */
-.card-footer {
-    border-top: 1px dashed #eee;
-    padding-top: 15px;
-    margin-top: 10px;
-}
-
-.organizer-info {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.org-logo {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-.org-name {
-    font-size: 14px;
-    color: #555;
-    font-weight: 600;
+/* ============================================================
+   3. RESPONSIVE (MOBILE)
+   ============================================================ */
+@media (max-width: 768px) {
+    .event-item-card, .event-card {
+        flex-direction: column;
+    }
+    .event-item-poster, .event-card-image {
+        flex: none;
+        width: 100%;
+        height: 220px;
+    }
+    .event-item-details, .event-card-body {
+        padding: 20px;
+    }
 }

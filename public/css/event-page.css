@@ -1,8 +1,8 @@
+/* Container Utama */
 .events-page-container {
-    max-width: 100%; 
-    padding: 40px 5% 40px 5%; 
-    margin: 0;
-    text-align: left;
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 0 5%; /* Memberi jarak aman di kanan kiri */
 }
 
 .events-header h1 {
@@ -11,12 +11,12 @@
     margin-bottom: 10px;
 }
 
+/* Ganti Grid System menjadi List System */
 .events-list-wrapper {
     display: flex;
-    flex-direction: column;
-    gap: 30px;
-    margin-top: 40px;
-    align-items: flex-start; 
+    flex-direction: column; /* Kartu berbaris ke bawah */
+    gap: 30px; /* Jarak antar kartu */
+    width: 100%;
 }
 
 .event-item-card {
