@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\EventController; 
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\FinanceController;
 use Illuminate\Support\Facades\File;
 
 /*
@@ -100,3 +101,15 @@ Route::middleware(['auth'])->group(function () {
     })->name('laporan');
 });
 
+/*
+|--------------------------------------------------------------------------
+| Finance Route
+|--------------------------------------------------------------------------
+*/
+
+Route::middleware(['auth'])->group(function () {
+
+    Route::get('/laporan', [FinanceController::class, 'index'])
+        ->name('laporan');
+
+});

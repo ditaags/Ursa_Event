@@ -15,7 +15,7 @@ return new class extends Migration
             $table->string('foto')->nullable();
             $table->text('deskripsi');
             $table->time('jam');
-            $table->string('status')->default('aktif'); 
+            $table->string('status')->default('pending'); 
             $table->timestamps();
         });
     }

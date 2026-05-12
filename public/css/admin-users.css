@@ -1,4 +1,4 @@
-/* public/css/admin-users.css */
+/* ================= CONTAINER ================= */
 .admin-container {
     background: #ffffff;
     padding: 25px;
@@ -6,56 +6,342 @@
     box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
 
+/* ================= HEADER ================= */
 .admin-header {
-    display: flex; 
-    justify-content: space-between; 
-    align-items: center; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 25px;
 }
 
+/* ================= TABLE ================= */
 .admin-table {
-    width: 100%; 
+    width: 100%;
     border-collapse: collapse;
 }
 
 .admin-table thead tr {
-    background: #f8fafc; 
-    text-align: left; 
+    background: #f8fafc;
+    text-align: left;
     border-bottom: 2px solid #eee;
 }
 
-.admin-table th, .admin-table td {
+.admin-table th,
+.admin-table td {
     padding: 15px;
 }
 
 .admin-table tbody tr {
     border-bottom: 1px solid #eee;
+    transition: 0.2s ease;
 }
 
+.admin-table tbody tr:hover {
+    background: #fafafa;
+}
+
+/* ================= BUTTON ADD ================= */
 .btn-add {
-    background: #e63946; 
-    color: white; 
-    padding: 10px 20px; 
-    border-radius: 8px; 
-    text-decoration: none; 
+    background: #e63946;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.2s ease;
+}
+
+.btn-add:hover {
+    background: #c1121f;
+}
+
+/* ================= BUTTON EDIT ================= */
+.btn-edit {
+    background: #334155;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 13px;
+    transition: 0.2s ease;
+}
+
+.btn-edit:hover {
+    background: #1e293b;
+}
+
+/* ================= BUTTON DELETE ================= */
+.btn-delete {
+    background: #e63946;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: 0.2s ease;
+}
+
+.btn-delete:hover {
+    background: #c1121f;
+}
+
+/* ================= ACTION BUTTONS ================= */
+.action-buttons {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* ================= USERNAME ================= */
+.username-cell {
+    font-weight: 600;
+    color: #1e293b;
+}
+
+/* ================= BADGE ================= */
+.badge-superadmin {
+    background: #fee2e2;
+    color: #991b1b;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 12px;
     font-weight: 600;
 }
 
-.btn-edit {
-    background: #334155; 
-    color: white; 
-    padding: 6px 12px; 
-    border-radius: 5px; 
-    text-decoration: none; 
-    font-size: 13px;
+.badge-admin {
+    background: #dbeafe;
+    color: #1d4ed8;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
 }
 
-.btn-delete {
-    background: #e63946; 
-    color: white; 
-    border: none; 
-    padding: 6px 12px; 
-    border-radius: 5px; 
+.badge-finance {
+    background: #dcfce7;
+    color: #166534;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* ================= ALERT ================= */
+.alert-success {
+    background: #d1fae5;
+    color: #065f46;
+    padding: 14px 16px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #a7f3d0;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.alert-error {
+    background: #fee2e2;
+    color: #991b1b;
+    padding: 14px 16px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #fecaca;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* ================= EMPTY ================= */
+.empty-data {
+    text-align: center;
+    padding: 30px;
+    color: #64748b;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+
+    .admin-container {
+        overflow-x: auto;
+    }
+
+    .admin-table {
+        min-width: 700px;
+    }
+
+    .admin-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+}
+/* ================= MODAL ================= */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.modal-box {
+    background: #fff;
+    width: 100%;
+    max-width: 450px;
+    border-radius: 14px;
+    padding: 25px;
+    animation: modalShow 0.2s ease;
+}
+
+@keyframes modalShow {
+
+    from {
+        transform: scale(0.95);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.modal-header h3 {
+    margin: 0;
+    color: #1e293b;
+}
+
+.modal-close {
+    border: none;
+    background: none;
+    font-size: 24px;
     cursor: pointer;
-    font-size: 13px;
+    color: #64748b;
+}
+
+.modal-close:hover {
+    color: #e63946;
+}
+
+/* ================= INPUT ================= */
+.input-group {
+    margin-bottom: 18px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.input-group input,
+.input-group select {
+    width: 100%;
+    padding: 11px 13px;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    outline: none;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.input-group input:focus,
+.input-group select:focus {
+    border-color: #e63946;
+    box-shadow: 0 0 0 3px rgba(230,57,70,0.15);
+}
+
+/* ================= ACTION ================= */
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+.btn-save-modal {
+    background: #e63946;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.btn-save-modal:hover {
+    background: #c1121f;
+}
+
+.btn-cancel-modal {
+    background: #f1f5f9;
+    color: #334155;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.btn-cancel-modal:hover {
+    background: #e2e8f0;
+}
+/* ================= DELETE MODAL ================= */
+.modal-delete-box {
+    background: #ffffff;
+    width: 100%;
+    max-width: 400px;
+    border-radius: 16px;
+    padding: 30px;
+    text-align: center;
+    animation: modalShow 0.2s ease;
+}
+
+.delete-icon {
+    width: 70px;
+    height: 70px;
+    background: #fee2e2;
+    color: #e63946;
+    font-size: 32px;
+    font-weight: bold;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 20px auto;
+}
+
+.modal-delete-box h3 {
+    margin-bottom: 10px;
+    color: #1e293b;
+}
+
+.modal-delete-box p {
+    color: #64748b;
+    font-size: 14px;
+    margin-bottom: 25px;
+}
+
+/* ================= DELETE BUTTON ================= */
+.btn-delete-confirm {
+    background: #e63946;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.2s ease;
+}
+
+.btn-delete-confirm:hover {
+    background: #c1121f;
 }

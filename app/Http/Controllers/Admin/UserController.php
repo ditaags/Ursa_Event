@@ -11,7 +11,17 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::latest()->get();
+        $users = User::orderByRaw("
+            CASE 
+                WHEN level = 'superadmin' THEN 1
+                WHEN level = 'admin' THEN 2
+                WHEN level = 'finance' THEN 3
+                ELSE 4
+            END
+        ")
+        ->orderBy('created_at', 'asc')
+        ->get();
+
         return view('admin.users.index', compact('users'));
     }
 
@@ -23,36 +33,69 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:ursaevent.users,email',
+            'username' => 'required|unique:users,username',
+            'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6',
+            'level' => 'required|in:superadmin,admin,finance',
         ]);
 
         User::create([
-            'id' => strtoupper(Str::random(20)), // karena id string
-            'name' => $request->name,
-            'username' => $request->email, // sementara isi email (bisa kamu ubah nanti)
+            'id' => strtoupper(Str::random(20)),
+            'name' => $request->username,
+            'username' => $request->username,
             'email' => $request->email,
-            'password' => User::customHash($request->password), // pakai custom hash kamu
-            'level' => 'admin', // default admin
+            'password' => User::customHash($request->password),
+            'level' => $request->level,
         ]);
 
-        return redirect()->route('admin.users.index')
-            ->with('success', 'Admin berhasil ditambahkan');
+        return redirect()
+            ->route('admin.users.index')
+            ->with('success', 'User berhasil ditambahkan');
+    }
+
+    public function update(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+
+        $request->validate([
+            'username' => 'required|unique:users,username,' . $id . ',id',
+            'email' => 'required|email|unique:users,email,' . $id . ',id',
+            'level' => 'required|in:superadmin,admin,finance',
+        ]);
+
+        $user->username = $request->username;
+        $user->name = $request->username;
+        $user->email = $request->email;
+        $user->level = $request->level;
+
+        // PASSWORD OPTIONAL
+        if ($request->password != null) {
+            $user->password = User::customHash($request->password);
+        }
+
+        $user->save();
+
+        return redirect()
+            ->route('admin.users.index')
+            ->with('success', 'User berhasil diupdate');
     }
 
     public function destroy($id)
     {
         $user = User::findOrFail($id);
 
-        // optional: biar tidak bisa hapus diri sendiri
         if (auth()->user()->id === $user->id) {
-            return back()->with('error', 'Tidak bisa menghapus akun sendiri');
+
+            return back()->with(
+                'error',
+                'Tidak bisa menghapus akun sendiri'
+            );
         }
 
         $user->delete();
 
-        return redirect()->route('admin.users.index')
-            ->with('success', 'Admin berhasil dihapus');
+        return redirect()
+            ->route('admin.users.index')
+            ->with('success', 'User berhasil dihapus');
     }
 }
