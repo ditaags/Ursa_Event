@@ -159,3 +159,141 @@ main {
 .footer-column ul li a:hover {
     opacity: 1;
 }
+/* =========================================
+   SLIDER REKOMENDASI EVENT
+========================================= */
+
+.event-slider-wrapper {
+    position: relative;
+}
+
+/* Container slider */
+.event-slider {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    padding-bottom: 10px;
+}
+
+.event-slider::-webkit-scrollbar {
+    display: none;
+}
+
+/* Card dalam slider */
+.event-slider .event-card {
+    min-width: 280px;
+    max-width: 280px;
+    flex-shrink: 0;
+}
+
+/* Tombol slider */
+.slider-btn {
+    position: absolute;
+    top: 45%;
+    transform: translateY(-50%);
+    z-index: 10;
+
+    width: 45px;
+    height: 45px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: #b91c1c;
+    color: white;
+
+    font-size: 22px;
+    cursor: pointer;
+
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+
+    transition: 0.3s;
+}
+
+.slider-btn:hover {
+    background: #991b1b;
+    transform: translateY(-50%) scale(1.05);
+}
+
+.slider-btn.left {
+    left: -15px;
+}
+
+.slider-btn.right {
+    right: -15px;
+}
+
+/* Event meta */
+.event-meta {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+/* Organizer */
+.event-organizer {
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.event-organizer img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.event-organizer span {
+    font-size: 14px;
+    color: #555;
+    font-weight: 600;
+}
+
+/* Empty state */
+.empty-event {
+    width: 100%;
+    background: white;
+    border-radius: 12px;
+    padding: 40px;
+    text-align: center;
+    border: 1px solid #eee;
+}
+
+.empty-event h3 {
+    margin-bottom: 10px;
+}
+
+.empty-event p {
+    color: #666;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+
+    .slider-btn {
+        width: 38px;
+        height: 38px;
+        font-size: 18px;
+    }
+
+    .slider-btn.left {
+        left: -5px;
+    }
+
+    .slider-btn.right {
+        right: -5px;
+    }
+
+    .event-slider .event-card {
+        min-width: 240px;
+        max-width: 240px;
+    }
+
+}
+.justify-center {
+        justify-content: center;
+    }

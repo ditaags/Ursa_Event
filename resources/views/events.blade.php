@@ -1,32 +1,90 @@
 @extends('layouts.app')
 
 @section('content')
+
+@php
+    use App\Models\Event;
+
+    // Ambil hanya event dengan status aktif
+    $events = Event::where('status', 'aktif')
+        ->orderBy('tanggal', 'asc')
+        ->get();
+@endphp
+
 <div class="events-page-container">
+
     <header class="events-header">
         <h1>Semua Event</h1>
-        <p>Temukan berbagai event teknologi dan inovasi digital menarik di sini.</p>
+        <p>
+            Temukan berbagai event teknologi dan inovasi digital menarik di sini.
+        </p>
     </header>
 
     <div class="events-list-wrapper">
-        <a href="/event/1" class="event-item-card">
+
+        @forelse($events as $event)
+
+        <a href="#" class="event-item-card">
+
             <div class="event-item-poster">
-                <img src="{{ asset('images/poster.jpg') }}" alt="Event Poster">
+
+                @if($event->foto)
+                    <img
+                        src="{{ $event->foto }}"
+                        alt="Event Poster"
+                    >
+                @else
+                    <img
+                        src="{{ asset('images/poster.jpg') }}"
+                        alt="Event Poster"
+                    >
+                @endif
+
             </div>
+
             <div class="event-item-details">
-                <h2 class="event-item-title">Temu Kangen Alumni – Reuni Akbar Angkatan One to Four</h2>
+
+                <h2 class="event-item-title">
+                    {{ $event->nama_event }}
+                </h2>
+
                 <div class="event-item-meta">
-                    <span class="meta-date">📅 30 Nov 2025</span>
-                    <span class="meta-price">Rp30.000</span>
+
+                    <span class="meta-date">
+                        📅 {{ \Carbon\Carbon::parse($event->tanggal)->translatedFormat('d M Y') }}
+                    </span>
+
+                    <span class="meta-price">
+                        🕒 {{ \Carbon\Carbon::parse($event->jam)->format('H:i') }}
+                    </span>
+
                 </div>
+
                 <p class="event-item-excerpt">
-                    Ajang berkumpul kembali bagi seluruh lulusan SMA Islam Terpadu Walisongo untuk mengenang masa sekolah...
+                    {{ \Illuminate\Support\Str::limit($event->deskripsi, 150) }}
                 </p>
-                <div class="event-item-footer">
-                    <img src="{{ asset('images/logo-org.png') }}" alt="Org" class="mini-logo">
-                    <span>GPAN Regional Kediri</span>
-                </div>
+
             </div>
+
         </a>
+
+        @empty
+
+        <div style="
+            width:100%;
+            text-align:center;
+            padding:40px;
+            background:white;
+            border-radius:12px;
+        ">
+            <h3>Belum Ada Event Aktif</h3>
+            <p>Event yang tersedia akan muncul di sini.</p>
         </div>
+
+        @endforelse
+
+    </div>
+
 </div>
+
 @endsection
