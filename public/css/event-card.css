@@ -84,18 +84,64 @@
 }
 
 /* ============================================================
-   3. RESPONSIVE (MOBILE)
+   3. RESPONSIVE (MOBILE) - VERSI OPTIMAL URSA EVENT
    ============================================================ */
 @media (max-width: 768px) {
+    .events-page-container {
+        margin: 30px auto;
+        padding: 0 15px;
+    }
+
+    /* List Wrapper agar lebih rapat */
+    .events-list-wrapper {
+        gap: 15px;
+    }
+
+    /* KUNCI: Membuat kartu menjadi horizontal yang ringkas */
     .event-item-card, .event-card {
-        flex-direction: column;
+        flex-direction: row !important; /* Gambar di kiri, teks di kanan */
+        padding: 10px !important;
+        gap: 15px !important;
+        border-radius: 16px !important;
+        align-items: center !important;
+        min-height: 120px; /* Batasi tinggi agar tidak memanjang */
     }
+
+    /* Ukuran gambar poster di HP (Kiri) */
     .event-item-poster, .event-card-image {
-        flex: none;
-        width: 100%;
-        height: 220px;
+        flex: 0 0 100px !important; /* Lebar poster tetap 100px */
+        height: 120px !important;   /* Tinggi poster tetap 120px */
+        border-radius: 12px !important;
     }
+
+    /* Detail Teks (Kanan) */
     .event-item-details, .event-card-body {
-        padding: 20px;
+        padding: 0 !important; /* Hapus padding besar desktop */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    /* Penyesuaian ukuran teks agar proporsional */
+    .event-item-details h3, .event-card-body h3 {
+        font-size: 16px !important; /* Ukuran judul lebih pas */
+        line-height: 1.3;
+        margin-bottom: 5px !important;
+        display: -webkit-box;
+        -webkit-line-clamp: 2; /* Maksimal 2 baris agar tidak kepanjangan */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    /* Jika ada info tanggal/lokasi di bawah h3 */
+    .event-item-details p, .event-card-body p {
+        font-size: 12px !important;
+        color: #666;
+        margin: 0 !important;
+    }
+
+    /* Matikan efek hover yang berat di mobile */
+    .event-item-card:hover, .event-card:hover {
+        transform: none !important;
     }
 }

@@ -60,3 +60,44 @@
 .footer-column ul li a:hover {
     text-decoration: underline;
 }
+
+/* Gabungkan ini di dalam blok @media (max-width: 768px) yang sudah ada */
+@media (max-width: 768px) {
+    
+    /* 1. Reset Container Footer agar tidak terpotong ke kanan */
+    .footer-container {
+        display: flex !important;           /* Ubah grid ke flex agar bisa tumpuk vertical */
+        flex-direction: column !important;  /* Tumpuk semua kolom ke bawah */
+        gap: 30px !important;               /* Beri jarak antar kolom */
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0 20px !important;
+        box-sizing: border-box !important;
+    }
+
+    /* 2. Menghilangkan Kolom Menu (Beranda, Event, Kontak Kami) */
+    /* Berdasarkan grid-mu, menu ini biasanya ada di kolom kedua */
+    .footer-container .footer-column:nth-child(2) {
+        display: none !important;
+    }
+
+    /* 3. Menghilangkan judul atau list spesifik jika child ke-2 bukan menunya */
+    /* Kamu bisa pakai cara spesifik ini jika cara di atas salah kolom */
+    .footer-column ul li a[href*="beranda"],
+    .footer-column ul li a[href*="event"],
+    .footer-column ul li a[href*="kontak"] {
+        display: none !important;
+    }
+
+    /* 4. Pastikan kolom lainnya memenuhi lebar layar HP */
+    .footer-column {
+        width: 100% !important;
+        text-align: left !important;
+    }
+
+    /* 5. Rapikan margin deskripsi agar tidak terlalu mepet */
+    .footer-description {
+        margin-top: 10px !important;
+        font-size: 14px !important;
+    }
+}

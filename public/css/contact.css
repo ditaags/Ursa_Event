@@ -1,7 +1,7 @@
 .contact-page-container {
     max-width: 1200px;
     margin: 0 auto;
-    /* Ubah 120px menjadi 40px agar lebih rapat ke header */
+    /* Desktop: 40px ke header */
     padding: 40px 20px 80px; 
     text-align: left;
 }
@@ -15,7 +15,7 @@
     font-size: 40px;
     font-weight: 800;
     color: #1a1a1a;
-    margin-bottom: 5px; /* Rapatkan jarak judul ke sub-judul */
+    margin-bottom: 5px; 
 }
 
 /* Mengatur Grid agar kartu berjajar rapi */
@@ -31,7 +31,6 @@
     border-radius: 25px;
     border: 1px solid #f0f0f0;
     transition: all 0.3s ease;
-    /* Memberikan efek bayangan agar terlihat 'mahal' */
     box-shadow: 0 10px 30px rgba(0,0,0,0.03);
 }
 
@@ -42,11 +41,11 @@
 }
 
 .info-icon {
-    background: #b91c1c; /* Warna merah khas Ursa */
+    background: #b91c1c; 
     color: white;
     width: 65px;
     height: 65px;
-    border-radius: 20px; /* Sudut agak kotak tapi melengkung */
+    border-radius: 20px; 
     display: flex;
     justify-content: center;
     align-items: center;
@@ -80,4 +79,90 @@
     font-size: 14px;
     text-transform: uppercase;
     letter-spacing: 1px;
+}
+
+/* =========================================
+   PERBAIKAN RESPONSIVE (MOBILE) - URSA EVENT
+   ========================================= */
+@media (max-width: 768px) {
+    /* ... kodingan container & header tetap sama ... */
+
+    .info-card {
+        display: flex !important;
+        flex-direction: row !important; /* Icon di kiri, Teks di kanan */
+        align-items: center !important; /* Teks rata tengah secara vertikal terhadap icon */
+        gap: 20px !important;           /* Jarak stabil antara icon dan blok teks */
+        padding: 15px 20px !important;
+        text-align: left !important;    /* Pastikan semua teks rata kiri */
+    }
+
+    .contact-header {
+        margin-bottom: 20px;
+        text-align: center; /* Judul di tengah lebih bagus untuk mobile */
+    }
+
+    .contact-header h1 {
+        font-size: 26px;
+        letter-spacing: -0.5px;
+    }
+
+    .contact-grid-modern {
+        display: flex;
+        flex-direction: column;
+        gap: 12px; /* Jarak antar kartu lebih rapat */
+        width: 100%;
+    }
+
+    .info-card {
+        /* KUNCI: Gunakan flex row agar icon di kiri, teks di kanan */
+        display: flex;
+        align-items: flex-start; 
+        gap: 15px; 
+        padding: 20px; /* Padding lebih ramping */
+        border-radius: 20px;
+        transition: none; /* Matikan hover transform di HP agar tidak goyang saat di-scroll */
+    }
+
+    .info-card:hover {
+        transform: none; 
+    }
+
+   .info-icon {
+        flex-shrink: 0 !important;      /* Agar icon tidak gepeng */
+        width: 50px !important;
+        height: 50px !important;
+        margin-bottom: 0 !important;    /* Hapus margin bawah desktop */
+    }
+
+    /* KUNCI SIMETRIS: Bungkus semua teks dalam satu kolom */
+    .info-card-body {
+        display: flex !important;
+        flex-direction: column !important; /* Tumpuk h3, p, dan label ke bawah */
+        justify-content: center !important;
+        gap: 2px !important;               /* Jarak antar baris teks */
+    }
+
+  .info-card h3 {
+        font-size: 16px !important;
+        margin: 0 !important;              /* Reset margin agar simetris */
+        line-height: 1.2 !important;
+    }
+
+   .info-card p {
+        font-size: 13px !important;
+        margin: 0 !important;
+        color: #666 !important;
+    }
+
+    .info-subtext {
+        font-size: 12px !important;
+        margin-bottom: 8px !important;
+    }
+
+ .info-label {
+        margin-top: 4px !important;
+        font-size: 11px !important;
+        border-top: none !important;       /* Hapus garis jika malah bikin penuh */
+        padding: 0 !important;
+    }
 }

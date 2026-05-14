@@ -1,5 +1,4 @@
 @php
-
 use Illuminate\Support\Facades\File;
 
 $base = storage_path('app/content/');
@@ -13,7 +12,6 @@ $footerContent = (object)[
         ? File::get($base . 'rules.txt')
         : '',
 ];
-
 @endphp
 <!DOCTYPE html>
 <html lang="id">
@@ -41,26 +39,39 @@ $footerContent = (object)[
 <body style="font-family: 'Inter', sans-serif;">
 
     {{-- Bagian Header --}}
- <header class="main-header">
-    <div class="container-header">
-        <div class="logo">
-            <a href="/">
-                <img src="{{ asset('images/logo.jpeg') }}" alt="Ursa Logo">
-            </a>
-        </div>
+    <header class="main-header navbar">
+        <div class="container-header nav-container">
+            {{-- Logo ini akan otomatis hilang di HP jika CSS .logo { display: none } aktif --}}
+            <div class="logo">
+                <a href="/">
+                    <img src="{{ asset('images/logo.jpeg') }}" alt="Ursa Logo" class="main-logo">
+                </a>
+            </div>
 
-        <div class="header-right">
-            <nav class="nav-menu">
-                <ul>
-                    <li><a href="{{ url('/') }}">BERANDA</a></li>
-                    <li><a href="{{ url('/event') }}">EVENT</a></li>
-                    <li><a href="{{ url('/kontak') }}">KONTAK KAMI</a></li>
-                </ul>
-            </nav>
+            <div class="header-right">
+                {{-- Tombol Hamburger (Akan berada di kanan karena justify-content: flex-end di CSS) --}}
+                <button class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
 
+                <nav class="nav-menu" id="nav-menu">
+                    {{-- Header Sidebar: Muncul hanya saat Sidebar dibuka di HP --}}
+                    <div class="sidebar-header">
+                        <img src="{{ asset('images/logo.jpeg') }}" alt="Ursa Logo" class="sidebar-logo">
+                        <button class="close-btn" id="close-btn">&times;</button>
+                    </div>
+
+                    <ul>
+                        <li><a href="{{ url('/') }}"><i class="fas fa-home"></i> BERANDA</a></li>
+                        <li><a href="{{ url('/event') }}"><i class="fas fa-calendar-alt"></i> EVENT</a></li>
+                        <li><a href="{{ url('/kontak') }}"><i class="fas fa-phone"></i> KONTAK KAMI</a></li>
+                    </ul>
+                </nav>
+            </div>
         </div>
-    </div>
-</header>
+    </header>
 
     {{-- Bagian Konten Dinamis --}}
     <main>
@@ -87,23 +98,50 @@ $footerContent = (object)[
 
             <div class="footer-column">
                 <ul>
-                 <li>
-    <strong>Syarat & Ketentuan</strong><br>
-    {{ $footerContent->terms }}
-</li>
+                    <li>
+                        <strong>Syarat & Ketentuan</strong><br>
+                        {{ $footerContent->terms }}
+                    </li>
                 </ul>
             </div>
 
             <div class="footer-column">
                 <ul>
-                   <li>
-    <strong>Kebijakan & Privasi</strong><br>
-    {{ $footerContent->rules }}
-</li>
+                    <li>
+                        <strong>Kebijakan & Privasi</strong><br>
+                        {{ $footerContent->rules }}
+                    </li>
                 </ul>
             </div>
         </div>
     </footer>
+
+    {{-- Script JavaScript --}}
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const closeBtn = document.getElementById('close-btn');
+        const navMenu = document.getElementById('nav-menu');
+
+        // Buka Menu
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.add('active');
+            hamburger.classList.add('is-active');
+        });
+
+        // Tutup Menu via tombol X
+        closeBtn.addEventListener('click', () => {
+            navMenu.classList.remove('active');
+            hamburger.classList.remove('is-active');
+        });
+
+        // Menutup menu jika klik di luar area sidebar
+        document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
+                navMenu.classList.remove('active');
+                hamburger.classList.remove('is-active');
+            }
+        });
+    </script>
 
 </body>
 </html>

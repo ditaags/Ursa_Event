@@ -1,16 +1,15 @@
-/* 1. Pengaturan Bar Header Utama */
-.main-header {
+/* 1. Pengaturan Navbar Utama (Desktop First) */
+.navbar {
     background-color: #ffffff;
     width: 100%;
     padding: 10px 0;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1); /* Tambah bayangan tipis agar elegan */
-    position: sticky; /* Agar header tetap di atas saat di-scroll */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    position: sticky;
     top: 0;
-    z-index: 1000; /* Pastikan di atas elemen lain */
+    z-index: 1000;
 }
 
-/* 2. Container: Logo kiri, Menu & Login kanan */
-.container-header {
+.nav-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -19,55 +18,184 @@
     padding: 0 20px;
 }
 
-/* 3. PAKSA Logo tetap kecil (Ini kunci agar tidak berantakan) */
+/* 2. Logo Utama */
 .logo img {
     height: 50px; 
     width: auto;
     display: block;
 }
 
-/* 4. Bungkus Navigasi & Tombol Login */
-.header-right {
-    display: flex;
-    align-items: center;
-    gap: 40px; 
-}
-
-/* 5. Menu Navigasi */
+/* 3. Menu Navigasi (Tampilan Laptop) */
 .nav-menu ul {
     display: flex;
+    align-items: center;
     list-style: none;
     margin: 0;
     padding: 0;
-    gap: 25px; 
+    gap: 30px; 
 }
 
-.nav-menu ul li a {
+.nav-menu li a {
     text-decoration: none;
     color: #333;
-    font-weight: 700; /* Lebih tebal sedikit agar tegas */
+    font-weight: 700;
     font-size: 14px;
-    text-transform: uppercase; /* Agar huruf besar semua sesuai desain */
+    text-transform: uppercase;
     transition: 0.3s;
+    display: flex;
+    align-items: center;
 }
 
-.nav-menu ul li a:hover {
+.nav-menu li a i, .sidebar-header {
+    display: none; 
+}
+
+.nav-menu li a:hover {
     color: #b91c1c; 
 }
 
-/* 6. Tombol LOGIN Merah */
-.btn-login {
-    background-color: #b91c1c;
-    color: white !important;
-    padding: 10px 25px;
-    border-radius: 6px;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 14px;
-    display: inline-block; /* Penting agar padding berfungsi pas */
+/* 4. Hamburger (Default Sembunyi) */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    z-index: 1001;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background-color: #333;
+    border-radius: 2px;
     transition: 0.3s;
 }
 
-.btn-login:hover {
-    background-color: #991b1b;
+/* 5. RESPONSIVE (Tampilan HP / < 768px) - VERSI FINAL GABUNGAN */
+@media (max-width: 768px) {
+    /* Global Reset agar tidak geser kanan */
+    html, body {
+        overflow-x: hidden;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Navbar & Container */
+    .nav-container .logo {
+        display: none; 
+    }
+
+    .navbar, .nav-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        display: flex;
+        justify-content: flex-start; 
+        padding: 15px 20px;
+        box-sizing: border-box !important;
+        left: 0 !important;
+    }
+
+    .hamburger {
+        display: flex;
+        margin-left: 0; 
+    }
+
+    /* Sidebar Menu */
+    .nav-menu {
+        position: fixed;
+        top: 0;
+        left: -100%; 
+        width: 75%;
+        height: 100vh;
+        background-color: #ffffff;
+        padding: 20px 30px;
+        transition: 0.4s ease-in-out;
+        box-shadow: 5px 0 15px rgba(0,0,0,0.2);
+        z-index: 999;
+    }
+
+    .nav-menu.active {
+        left: 0;
+    }
+
+    /* Header di dalam Sidebar */
+    .sidebar-header {
+        display: flex; 
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #eee;
+        margin-bottom: 20px;
+    }
+
+    .sidebar-logo {
+        display: block !important;
+        height: 35px;
+        width: auto;
+    }
+
+    .close-btn {
+        background: none;
+        border: none;
+        font-size: 30px;
+        color: #333;
+        cursor: pointer;
+    }
+
+    .nav-menu ul {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+    }
+
+    .nav-menu li {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .nav-menu li a {
+        font-size: 16px;
+        text-transform: capitalize;
+    }
+
+    .nav-menu li a i {
+        display: inline-block;
+        color: #b91c1c;
+        margin-right: 10px;
+    }
+
+    /* Perbaikan Kontainer Kontak & Card */
+    .contact-page-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 20px 15px !important;
+        box-sizing: border-box !important;
+    }
+
+    .contact-grid-modern {
+        display: flex !important;
+        flex-direction: column !important;
+        width: 100% !important;
+        gap: 15px !important;
+    }
+
+    .info-card {
+        width: 100% !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Perbaikan Footer */
+    footer, .footer-container, .footer-content {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 30px 15px !important;
+        box-sizing: border-box !important;
+        display: block !important; 
+    }
 }

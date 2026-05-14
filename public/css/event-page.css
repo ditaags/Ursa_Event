@@ -2,20 +2,32 @@
 .events-page-container {
     max-width: 1200px;
     margin: 50px auto;
-    padding: 0 5%; /* Memberi jarak aman di kanan kiri */
+    padding: 0 5%; 
+}
+
+/* 1. Perbaikan Spacing Header (Agar tidak mepet sub-judul) */
+.events-header {
+    margin-bottom: 40px; /* Tambahkan ini agar ada jarak ke kartu pertama */
+    padding: 0 10px;
 }
 
 .events-header h1 {
     font-size: 32px;
     font-weight: 800;
+    margin-bottom: 15px; /* Jarak antara judul dan sub-judul */
+}
+
+.events-header p {
+    color: #666;
+    line-height: 1.6;
     margin-bottom: 10px;
 }
 
-/* Ganti Grid System menjadi List System */
+/* Grid System */
 .events-list-wrapper {
     display: flex;
-    flex-direction: column; /* Kartu berbaris ke bawah */
-    gap: 30px; /* Jarak antar kartu */
+    flex-direction: column; 
+    gap: 30px; 
     width: 100%;
 }
 
@@ -53,6 +65,46 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+/* 2. RESPONSIVE ADJUSTMENT (< 768px) */
+@media (max-width: 768px) {
+    .events-page-container {
+        margin: 30px auto; /* Kurangi margin atas di mobile */
+    }
+
+    .events-header {
+        margin-bottom: 30px; /* Jarak antara teks header dan card pertama */
+        text-align: left;
+    }
+
+    .events-header h1 {
+        font-size: 26px; /* Perkecil sedikit di mobile */
+    }
+
+    /* Ubah arah kartu menjadi vertikal di mobile */
+    .event-item-card {
+        flex-direction: column;
+    }
+
+    .event-item-poster {
+        max-width: 100%; /* Gambar ambil lebar penuh */
+        height: 250px; /* Batasi tinggi gambar agar tidak terlalu panjang */
+    }
+
+    .event-item-details {
+        padding: 20px; /* Kurangi padding dalam agar tidak sempit */
+    }
+
+    .event-item-title {
+        font-size: 18px;
+    }
+
+    .event-item-meta {
+        flex-wrap: wrap; /* Supaya meta info tidak keluar layar */
+        gap: 10px;
+        font-size: 13px;
+    }
 }
 
 .event-item-title {
