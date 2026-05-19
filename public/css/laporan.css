@@ -8,8 +8,7 @@
 
 body{
     font-family: 'Plus Jakarta Sans', sans-serif;
-    /* Ganti ke hitam pekat murni agar tidak ada kesan biru */
-    background: #000000; 
+    background: #000000;
     height: 100vh;
     overflow: hidden;
 }
@@ -23,11 +22,10 @@ body{
 .container-box{
     width: 100%;
     height: 100%;
-    background: #ffffff; 
+    background: #ffffff;
     border-radius: 40px;
     padding: 40px;
     overflow-y: auto;
-    /* Aksen merah menyala Ursa Event */
     border-left: 12px solid #e11d48;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
 }
@@ -43,32 +41,14 @@ body{
 .title{
     font-size: 34px;
     font-weight: 800;
-    /* Hitam murni */
     color: #111111;
     letter-spacing: -1px;
 }
 
 .subtitle{
     font-size: 16px;
-    /* Abu-abu netral */
     color: #666666;
     margin-top: 8px;
-}
-
-.logout-btn{
-    background: #e11d48;
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    border-radius: 14px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.logout-btn:hover{
-    background: #be123c;
-    box-shadow: 0 10px 15px -3px rgba(225, 29, 72, 0.4);
 }
 
 .section-title{
@@ -81,10 +61,14 @@ body{
     padding-bottom: 5px;
 }
 
+.table-section{
+    margin-top: 40px;
+}
+
 .table-wrapper{
     width: 100%;
     overflow-x: auto;
-    border-radius: 12px;
+    border-radius: 16px;
     border: 1px solid #eeeeee;
 }
 
@@ -95,7 +79,6 @@ table{
 }
 
 table thead{
-    /* Ganti dari navy ke hitam pekat murni */
     background: #111111;
 }
 
@@ -115,13 +98,11 @@ table td{
     border-bottom: 1px solid #f5f5f5;
     padding: 16px;
     font-size: 14px;
-    /* Hitam abu-abu netral */
     color: #333333;
     font-weight: 500;
 }
 
-/* Hover baris dengan warna merah sangat tipis */
-table tbody tr:hover {
+table tbody tr:hover{
     background-color: rgba(225, 29, 72, 0.03);
 }
 
@@ -130,4 +111,50 @@ table tbody tr:hover {
     font-weight: 700;
     color: #999999;
     padding: 40px;
+}
+
+/* ====================== */
+/* CHART */
+/* ====================== */
+
+.chart-section{
+    margin-bottom: 40px;
+}
+
+.chart-container{
+    width: 100%;
+    height: 420px;
+    background: #ffffff;
+    border: 1px solid #eeeeee;
+    border-radius: 24px;
+    padding: 24px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
+.chart-container canvas{
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* ====================== */
+/* BUTTON */
+/* ====================== */
+
+.logout-btn{
+    margin-top: 35px;
+    background: #e11d48;
+    color: white;
+    border: none;
+    padding: 14px 24px;
+    border-radius: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s ease;
+    font-size: 14px;
+}
+
+.logout-btn:hover{
+    background: #be123c;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(225, 29, 72, 0.35);
 }
