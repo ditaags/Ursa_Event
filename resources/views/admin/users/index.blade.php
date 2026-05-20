@@ -7,36 +7,49 @@
 <div class="admin-container">
 
     <div class="admin-header">
-        <h2 style="color: #e63946;">Daftar User Ursa</h2>
 
-        <a href="{{ route('admin.users.create') }}" class="btn-add">
+        <h2 style="color: #e63946;">
+            Daftar User Ursa
+        </h2>
+
+        <a href="{{ route('admin.users.create') }}"
+           class="btn-add">
+
             + Tambah User
+
         </a>
+
     </div>
 
     {{-- SUCCESS --}}
     @if(session('success'))
+
         <div class="alert-success">
             {{ session('success') }}
         </div>
+
     @endif
 
     {{-- ERROR --}}
     @if(session('error'))
+
         <div class="alert-error">
             {{ session('error') }}
         </div>
+
     @endif
 
     <table class="admin-table">
 
         <thead>
+
             <tr>
                 <th>Username</th>
                 <th>Email</th>
                 <th>Level</th>
                 <th>Aksi</th>
             </tr>
+
         </thead>
 
         <tbody>
@@ -70,10 +83,16 @@
                                 Admin
                             </span>
 
-                        @else
+                        @elseif($user->level == 'finance')
 
                             <span class="badge-finance">
                                 Finance
+                            </span>
+
+                        @else
+
+                            <span class="badge-user">
+                                User
                             </span>
 
                         @endif
@@ -113,9 +132,14 @@
             @empty
 
                 <tr>
-                    <td colspan="4" class="empty-data">
+
+                    <td colspan="4"
+                        class="empty-data">
+
                         Belum ada data user.
+
                     </td>
+
                 </tr>
 
             @endforelse
@@ -127,11 +151,13 @@
 </div>
 
 {{-- ================= EDIT MODAL ================= --}}
-<div class="modal-overlay" id="editModal">
+<div class="modal-overlay"
+     id="editModal">
 
     <div class="modal-box">
 
         <div class="modal-header">
+
             <h3>Edit User</h3>
 
             <button class="modal-close"
@@ -140,64 +166,89 @@
                 ×
 
             </button>
+
         </div>
 
-        <form method="POST" id="editForm">
+        <form method="POST"
+              id="editForm">
 
             @csrf
             @method('PUT')
 
             {{-- USERNAME --}}
             <div class="input-group">
+
                 <label>Username</label>
 
                 <input type="text"
                        name="username"
                        id="editUsername"
                        required>
+
             </div>
 
             {{-- EMAIL --}}
             <div class="input-group">
+
                 <label>Email</label>
 
                 <input type="email"
                        name="email"
                        id="editEmail"
                        required>
+
             </div>
 
             {{-- PASSWORD --}}
             <div class="input-group">
+
                 <label>Password Baru</label>
 
                 <input type="password"
                        name="password"
                        placeholder="Kosongkan jika tidak ingin mengganti">
+
             </div>
 
             {{-- LEVEL --}}
-            <div class="input-group">
-                <label>Level</label>
+            @if(Auth::user()->level === 'superadmin')
 
-                <select name="level"
-                        id="editLevel"
-                        required>
+                <div class="input-group">
 
-                    <option value="superadmin">
-                        Super Admin
-                    </option>
+                    <label>Level</label>
 
-                    <option value="admin">
-                        Admin
-                    </option>
+                    <select name="level"
+                            id="editLevel"
+                            required>
 
-                    <option value="finance">
-                        Finance
-                    </option>
+                        <option value="superadmin">
+                            Super Admin
+                        </option>
 
-                </select>
-            </div>
+                        <option value="admin">
+                            Admin
+                        </option>
+
+                        <option value="finance">
+                            Finance
+                        </option>
+
+                        <option value="user">
+                            User
+                        </option>
+
+                    </select>
+
+                </div>
+
+            @else
+
+                {{-- admin otomatis user --}}
+                <input type="hidden"
+                       name="level"
+                       value="user">
+
+            @endif
 
             <div class="modal-actions">
 
@@ -225,7 +276,8 @@
 </div>
 
 {{-- ================= DELETE MODAL ================= --}}
-<div class="modal-overlay" id="deleteModal">
+<div class="modal-overlay"
+     id="deleteModal">
 
     <div class="modal-delete-box">
 
@@ -249,7 +301,8 @@
 
             </button>
 
-            <form method="POST" id="deleteForm">
+            <form method="POST"
+                  id="deleteForm">
 
                 @csrf
                 @method('DELETE')
@@ -279,7 +332,11 @@ function openEditModal(id, username, email, level)
 
     document.getElementById('editEmail').value = email;
 
-    document.getElementById('editLevel').value = level;
+    const levelInput = document.getElementById('editLevel');
+
+    if(levelInput){
+        levelInput.value = level;
+    }
 
     document.getElementById('editForm').action =
         `/admin/users/${id}`;

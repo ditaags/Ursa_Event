@@ -66,32 +66,45 @@
                     required
                 >
             </div>
+{{-- LEVEL --}}
+@if(Auth::user()->level === 'superadmin')
 
-            {{-- LEVEL --}}
-            <div class="input-group">
-                <label>Level</label>
+    <div class="input-group">
+        <label>Level</label>
 
-                <select name="level" required>
-                    <option value="">-- Pilih Level --</option>
+        <select name="level" required>
 
-                    <option value="superadmin"
-                        {{ old('level') == 'superadmin' ? 'selected' : '' }}>
-                        Super Admin
-                    </option>
+            <option value="">-- Pilih Level --</option>
 
-                    <option value="admin"
-                        {{ old('level') == 'admin' ? 'selected' : '' }}>
-                        Admin
-                    </option>
+            <option value="superadmin"
+                {{ old('level') == 'superadmin' ? 'selected' : '' }}>
+                Super Admin
+            </option>
 
-                    <option value="finance"
-                        {{ old('level') == 'finance' ? 'selected' : '' }}>
-                        Finance
-                    </option>
-                </select>
-            </div>
+            <option value="admin"
+                {{ old('level') == 'admin' ? 'selected' : '' }}>
+                Admin
+            </option>
 
-        </div>
+            <option value="finance"
+                {{ old('level') == 'finance' ? 'selected' : '' }}>
+                Finance
+            </option>
+
+            <option value="user"
+                {{ old('level') == 'user' ? 'selected' : '' }}>
+                User
+            </option>
+
+        </select>
+    </div>
+
+@elseif(Auth::user()->level === 'admin')
+
+    {{-- otomatis user --}}
+    <input type="hidden" name="level" value="user">
+
+@endif
 
         <div class="form-actions">
             <a href="{{ route('admin.users.index') }}" class="btn-cancel">

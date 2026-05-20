@@ -31,13 +31,6 @@
 
         @endif
 
-        {{-- DAFTAR EVENT --}}
-        <li class="{{ Request::is('admin/events') && !Request::is('admin/events/create') ? 'active' : '' }}">
-            <a href="{{ route('admin.events.index') }}">
-                Daftar Event
-            </a>
-        </li>
-
         {{-- TAMBAH EVENT --}}
         <li class="{{ Request::is('admin/events/create') ? 'active' : '' }}">
             <a href="{{ route('admin.events.create') }}">
@@ -45,22 +38,24 @@
             </a>
         </li>
 
-        {{-- KHUSUS SUPERADMIN --}}
-        @if(Auth::user()->level === 'superadmin')
+        {{-- DAFTAR EVENT --}}
+        <li class="{{ Request::is('admin/events') && !Request::is('admin/events/create') ? 'active' : '' }}">
+            <a href="{{ route('admin.events.index') }}">
+                Daftar Event
+            </a>
+        </li>
 
+          <li class="{{ Request::is('admin/users/create') ? 'active' : '' }}">
+                <a href="{{ route('admin.users.create') }}">
+                    Tambah User
+                </a>
+            </li>
+    
             <li class="{{ Request::is('admin/users') ? 'active' : '' }}">
                 <a href="{{ route('admin.users.index') }}">
-                    Admin
+                    Daftar User
                 </a>
             </li>
-
-            <li class="{{ Request::is('admin/users/create') ? 'active' : '' }}">
-                <a href="{{ route('admin.users.create') }}">
-                    Tambah Admin
-                </a>
-            </li>
-
-        @endif
 
         {{-- LOGOUT --}}
         <li class="logout-section">
