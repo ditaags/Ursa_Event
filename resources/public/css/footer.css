@@ -1,0 +1,103 @@
+.footer-description {
+    font-size: 15px;
+    line-height: 1.8;
+    font-weight: 500;
+    opacity: 0.9;
+    /* Memberikan sedikit ruang atas agar sejajar dengan judul kolom lainnya */
+    margin-top: 5px; 
+}
+
+/* Kode lainnya tetap sama seperti sebelumnya */
+.main-footer {
+    background-color: #b91c1c;
+    color: white;
+    padding: 60px 0;
+    width: 100%;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1.5fr;
+    gap: 40px;
+    padding: 0 20px;
+}
+
+.footer-column h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 25px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.footer-column h3::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 40px;
+    height: 2px;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.footer-column ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-column ul li {
+    margin-bottom: 15px;
+}
+
+.footer-column ul li a {
+    color: white;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.footer-column ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Gabungkan ini di dalam blok @media (max-width: 768px) yang sudah ada */
+@media (max-width: 768px) {
+    
+    /* 1. Reset Container Footer agar tidak terpotong ke kanan */
+    .footer-container {
+        display: flex !important;           /* Ubah grid ke flex agar bisa tumpuk vertical */
+        flex-direction: column !important;  /* Tumpuk semua kolom ke bawah */
+        gap: 30px !important;               /* Beri jarak antar kolom */
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0 20px !important;
+        box-sizing: border-box !important;
+    }
+
+    /* 2. Menghilangkan Kolom Menu (Beranda, Event, Kontak Kami) */
+    /* Berdasarkan grid-mu, menu ini biasanya ada di kolom kedua */
+    .footer-container .footer-column:nth-child(2) {
+        display: none !important;
+    }
+
+    /* 3. Menghilangkan judul atau list spesifik jika child ke-2 bukan menunya */
+    /* Kamu bisa pakai cara spesifik ini jika cara di atas salah kolom */
+    .footer-column ul li a[href*="beranda"],
+    .footer-column ul li a[href*="event"],
+    .footer-column ul li a[href*="kontak"] {
+        display: none !important;
+    }
+
+    /* 4. Pastikan kolom lainnya memenuhi lebar layar HP */
+    .footer-column {
+        width: 100% !important;
+        text-align: left !important;
+    }
+
+    /* 5. Rapikan margin deskripsi agar tidak terlalu mepet */
+    .footer-description {
+        margin-top: 10px !important;
+        font-size: 14px !important;
+    }
+}

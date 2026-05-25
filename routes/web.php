@@ -113,3 +113,6 @@ Route::middleware(['auth'])->group(function () {
         ->name('laporan');
 
 });
+
+Route::get('/download-excel', [FinanceController::class, 'downloadExcel'])
+    ->name('download.excel');

@@ -1,0 +1,63 @@
+/* Gunakan CSS yang sudah kamu punya sebelumnya, lalu tambahkan/modifikasi bagian ini */
+
+.form-container {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    max-width: 900px;
+    margin: 20px auto;
+    
+    /* Tambahan agar sama dengan gambar contoh: garis merah di kiri */
+    border-left: 5px solid #e63946; 
+    position: relative;
+}
+
+.form-header {
+    margin-bottom: 30px;
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 15px;
+}
+
+/* Input Group tetap sama dengan desain kontakmu */
+.input-group {
+    margin-bottom: 25px;
+}
+
+.input-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #1e293b;
+    font-size: 0.95rem;
+}
+
+.input-group input, 
+.input-group textarea {
+    width: 100%; /* Pastikan memenuhi kontainer */
+    padding: 14px 18px;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 1rem;
+    background-color: #f8fafc;
+    transition: all 0.3s ease;
+}
+
+/* Tombol Save tetap menggunakan warna asli sesuai permintaanmu */
+.btn-save {
+    background-color: #e63946;
+    color: #ffffff;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 10px rgba(230, 57, 70, 0.25);
+}
+
+.btn-save:hover {
+    background-color: #c1121f;
+    transform: translateY(-2px);
+}

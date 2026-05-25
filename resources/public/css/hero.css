@@ -1,0 +1,52 @@
+.hero-section {
+    position: relative;
+    width: 100%;
+    height: 500px; /* Atur tinggi hero section */
+    background-image: url('../images/gedung.png'); /* Pastikan gambar ada di folder public/images */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Memberikan efek parallax sedikit */
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Lapisan hitam transparan agar teks terbaca */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.hero-content {
+    max-width: 800px;
+    padding: 0 20px;
+}
+
+.hero-content h1 {
+    color: white;
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1.4;
+    margin-bottom: 30px;
+}
+
+.btn-eksplorasi {
+    display: inline-block;
+    background-color: #b91c1c; /* Merah seragam dengan tombol Login */
+    color: white;
+    text-decoration: none;
+    padding: 15px 40px;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: transform 0.3s, background 0.3s;
+}
+
+.btn-eksplorasi:hover {
+    background-color: #991b1b;
+    transform: scale(1.05); /* Efek sedikit membesar saat disentuh mouse */
+}

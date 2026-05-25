@@ -1,0 +1,152 @@
+/* --- 1. Reset & Base --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
+}
+
+body {
+    background-color: #f8fafc;
+    color: #1e293b;
+}
+
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* --- 2. Sidebar Layout --- */
+.sidebar {
+    width: 260px;
+    height: 100vh;
+    background: linear-gradient(180deg, #111827 0%, #000000 100%);
+    color: white;
+    position: fixed;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    padding: 25px 20px;
+}
+
+.sidebar-brand {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.sidebar-brand img {
+    width: 80px;
+    height: auto;
+    margin-bottom: 10px;
+    filter: drop-shadow(0 0 10px rgba(230, 57, 70, 0.4));
+    object-fit: contain;
+}
+
+.sidebar-brand span {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #e63946;
+    letter-spacing: 1px;
+}
+
+/* --- 3. Sidebar Menu --- */
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex-grow: 1;
+}
+
+.sidebar-menu a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #94a3b8; 
+    padding: 12px 15px;
+    border-radius: 12px;
+    margin: 6px 0;
+    transition: all 0.3s ease;
+}
+
+.sidebar-menu a:hover,
+.sidebar-menu li.active a {
+    background: rgba(230, 57, 70, 0.1);
+    color: #ffffff;
+}
+
+.sidebar-menu li.active a {
+    color: #e63946;
+    font-weight: 700;
+    border-left: 4px solid #e63946;
+    border-radius: 4px 12px 12px 4px;
+}
+
+/* --- 4. Logout Section --- */
+.logout-section {
+    margin-top: auto; 
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.logout-link {
+    color: #fda4af !important;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    font-weight: 600;
+    border-radius: 12px;
+}
+
+.logout-link:hover {
+    background: rgba(225, 29, 72, 0.2);
+    color: #ffffff !important;
+}
+
+/* --- 5. Main Content --- */
+.main-content {
+    flex: 1;
+    margin-left: 260px; /* Harus sama dengan lebar sidebar */
+    padding: 40px;
+}
+
+.welcome-card {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+    margin-bottom: 30px;
+    border-left: 6px solid #e63946;
+}
+
+/* Stats Grid */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.stat-card {
+    background: #ffffff;
+    border-radius: 15px;
+    padding: 25px;
+    text-align: center;
+    border: 1px solid #f1f5f9;
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    border-color: #e63946;
+}
+
+.stat-card .number {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #e63946;
+    display: block;
+}

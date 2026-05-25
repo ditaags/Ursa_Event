@@ -26,6 +26,7 @@
             <div class="header-area">
 
                 <div>
+
                     <h2 class="title">
                         Data Finance
                     </h2>
@@ -33,6 +34,7 @@
                     <p class="subtitle">
                         Tampilan detail data finance dibawah ini
                     </p>
+
                 </div>
 
             </div>
@@ -44,7 +46,7 @@
             <div class="chart-section">
 
                 <h3 class="section-title">
-                    Grafik Tiket Terjual
+                    Grafik Pendapatan Tiket
                 </h3>
 
                 <div class="chart-container">
@@ -56,7 +58,7 @@
             </div>
 
             <!-- ====================== -->
-            <!-- DATA TIKET -->
+            <!-- DATA TIKET & TRANSAKSI -->
             <!-- ====================== -->
 
             <div class="table-section">
@@ -64,6 +66,36 @@
                 <h3 class="section-title">
                     Data Tiket & Transaksi
                 </h3>
+
+                <!-- TOP ACTION -->
+
+                <div class="top-action">
+
+                    <!-- DOWNLOAD BUTTON -->
+
+                    <a href="{{ route('download.excel') }}" class="download-btn">
+
+                        <i class="fa-solid fa-file-excel"></i>
+
+                        Download Excel
+
+                    </a>
+
+                    <!-- SEARCH -->
+
+                    <div class="search-box">
+
+                        <input
+                            type="text"
+                            id="searchInput"
+                            placeholder="Cari nama tiket, kategori, status, tanggal..."
+                        >
+
+                        <i class="fa-solid fa-magnifying-glass"></i>
+
+                    </div>
+
+                </div>
 
                 <div class="table-wrapper">
 
@@ -82,67 +114,64 @@
 
                         </thead>
 
-                        <tbody>
+                        <tbody id="transactionTableBody">
 
-                            @php
-                                $max = max($tikets->count(), $transaksis->count());
-                            @endphp
+                            @foreach ($transaksis as $index => $transaksi)
 
-                            @for ($i = 0; $i < $max; $i++)
-
-                                <tr>
+                                <tr
+                                    class="transaction-row"
+                                    data-index="{{ $index }}"
+                                >
 
                                     <td>
-                                        {{ $tikets[$i]->nama_tiket ?? '-' }}
+                                        {{ $transaksi->nama_tiket }}
                                     </td>
 
                                     <td>
-                                        {{ $tikets[$i]->kuota ?? '-' }}
+                                        {{ $transaksi->kuota }}
                                     </td>
 
                                     <td>
-                                        {{ $tikets[$i]->kategori ?? '-' }}
+                                        {{ $transaksi->kategori }}
                                     </td>
 
                                     <td>
-                                        {{ isset($transaksis[$i]) ? ucfirst($transaksis[$i]->status) : '-' }}
+                                        {{ ucfirst($transaksi->status) }}
                                     </td>
 
                                     <td>
-                                        @if(isset($tikets[$i]))
-                                            Rp {{ number_format($tikets[$i]->harga, 0, ',', '.') }}
-                                        @else
-                                            -
-                                        @endif
+                                        Rp {{ number_format($transaksi->harga, 0, ',', '.') }}
                                     </td>
 
                                     <td>
-                                        @if(isset($transaksis[$i]) && $transaksis[$i]->tanggal)
-                                            {{ date('d-m-Y', strtotime($transaksis[$i]->tanggal)) }}
-                                        @else
-                                            -
-                                        @endif
+                                        {{ date('d-m-Y', strtotime($transaksi->tanggal)) }}
                                     </td>
 
                                 </tr>
 
-                            @endfor
-
-                            @if($max == 0)
-
-                                <tr>
-
-                                    <td colspan="6" class="empty-data">
-                                        Data belum tersedia
-                                    </td>
-
-                                </tr>
-
-                            @endif
+                            @endforeach
 
                         </tbody>
 
                     </table>
+
+                </div>
+
+                <!-- SLIDER BUTTON -->
+
+                <div class="slider-buttons">
+
+                    <button type="button" id="prevSlide">
+
+                        <i class="fa-solid fa-chevron-left"></i>
+
+                    </button>
+
+                    <button type="button" id="nextSlide">
+
+                        <i class="fa-solid fa-chevron-right"></i>
+
+                    </button>
 
                 </div>
 
@@ -166,8 +195,7 @@
 
                             <tr>
                                 <th>Nama Tiket</th>
-                                <th>Bagian Super Admin</th>
-                                <th>Bagian Admin</th>
+                                <th>Pendapatan</th>
                                 <th>Tanggal</th>
                             </tr>
 
@@ -184,11 +212,7 @@
                                     </td>
 
                                     <td>
-                                        Rp {{ number_format($finance->bagian_super_admin, 0, ',', '.') }}
-                                    </td>
-
-                                    <td>
-                                        Rp {{ number_format($finance->bagian_admin, 0, ',', '.') }}
+                                        Rp {{ number_format($finance->pendapatan, 0, ',', '.') }}
                                     </td>
 
                                     <td>
@@ -201,7 +225,7 @@
 
                                 <tr>
 
-                                    <td colspan="4" class="empty-data">
+                                    <td colspan="3" class="empty-data">
                                         Data finance belum tersedia
                                     </td>
 
@@ -242,143 +266,240 @@
 
     <script>
 
-    const ctx = document.getElementById('ticketChart');
+        const ctx = document.getElementById('ticketChart');
 
-    const chartLabels = @json($chartLabels);
+        const chartLabels = @json($chartLabels);
 
-    const chartData = @json($chartData);
+        const chartData = @json($chartData);
 
-    /*
-    |--------------------------------------------------------------------------
-    | WARNA RANDOM
-    |--------------------------------------------------------------------------
-    */
+        const backgroundColors = [
+            '#e11d48',
+            '#3b82f6',
+            '#22c55e',
+            '#f59e0b',
+            '#8b5cf6',
+            '#06b6d4',
+            '#f97316',
+            '#14b8a6',
+            '#ef4444',
+            '#84cc16',
+            '#ec4899',
+            '#6366f1'
+        ];
 
-    const backgroundColors = [
-        '#e11d48',
-        '#3b82f6',
-        '#22c55e',
-        '#f59e0b',
-        '#8b5cf6',
-        '#06b6d4',
-        '#f97316',
-        '#14b8a6',
-        '#ef4444',
-        '#84cc16',
-        '#ec4899',
-        '#6366f1'
-    ];
+        const borderColors = [
+            '#be123c',
+            '#2563eb',
+            '#16a34a',
+            '#d97706',
+            '#7c3aed',
+            '#0891b2',
+            '#ea580c',
+            '#0f766e',
+            '#dc2626',
+            '#65a30d',
+            '#db2777',
+            '#4f46e5'
+        ];
 
-    const borderColors = [
-        '#be123c',
-        '#2563eb',
-        '#16a34a',
-        '#d97706',
-        '#7c3aed',
-        '#0891b2',
-        '#ea580c',
-        '#0f766e',
-        '#dc2626',
-        '#65a30d',
-        '#db2777',
-        '#4f46e5'
-    ];
+        new Chart(ctx, {
 
-    new Chart(ctx, {
+            type: 'bar',
 
-        type: 'bar',
+            data: {
 
-        data: {
+                labels: chartLabels,
 
-            labels: chartLabels,
+                datasets: [{
 
-            datasets: [{
+                    label: 'Pendapatan Tiket',
 
-                label: 'Jumlah Tiket Terjual',
+                    data: chartData,
 
-                data: chartData,
+                    backgroundColor: chartLabels.map((_, index) =>
+                        backgroundColors[index % backgroundColors.length]
+                    ),
 
-                backgroundColor: chartLabels.map((_, index) =>
-                    backgroundColors[index % backgroundColors.length]
-                ),
+                    borderColor: chartLabels.map((_, index) =>
+                        borderColors[index % borderColors.length]
+                    ),
 
-                borderColor: chartLabels.map((_, index) =>
-                    borderColors[index % borderColors.length]
-                ),
+                    borderWidth: 2,
 
-                borderWidth: 2,
-                borderRadius: 10
+                    borderRadius: 10
 
-            }]
-        },
-
-        options: {
-
-            responsive: true,
-
-            maintainAspectRatio: false,
-
-            plugins: {
-
-                legend: {
-
-                    labels: {
-                        color: '#111111'
-                    }
-
-                }
-
+                }]
             },
 
-            scales: {
+            options: {
 
-                y: {
+                responsive: true,
 
-                    beginAtZero: true,
+                maintainAspectRatio: false,
 
-                    ticks: {
+                plugins: {
 
-                        stepSize: 1,
+                    legend: {
 
-                        precision: 0,
-
-                        color: '#111111',
-
-                        callback: function(value) {
-
-                            if (Number.isInteger(value)) {
-                                return value;
-                            }
-
+                        labels: {
+                            color: '#111111'
                         }
 
-                    },
-
-                    grid: {
-                        color: '#eeeeee'
                     }
 
                 },
 
-                x: {
+                scales: {
 
-                    ticks: {
-                        color: '#111111'
+                    y: {
+
+                        beginAtZero: true,
+
+                        ticks: {
+
+                            precision: 0,
+
+                            color: '#111111'
+
+                        },
+
+                        grid: {
+                            color: '#eeeeee'
+                        }
+
                     },
 
-                    grid: {
-                        display: false
+                    x: {
+
+                        ticks: {
+                            color: '#111111'
+                        },
+
+                        grid: {
+                            display: false
+                        }
+
                     }
 
                 }
 
             }
 
+        });
+
+    </script>
+
+    <!-- ====================== -->
+    <!-- SLIDER + SEARCH -->
+    <!-- ====================== -->
+
+    <script>
+
+        const rows = Array.from(document.querySelectorAll('.transaction-row'));
+
+        const searchInput = document.getElementById('searchInput');
+
+        const rowsPerSlide = 10;
+
+        let currentSlide = 0;
+
+        let filteredRows = [...rows];
+
+        /*
+        |--------------------------------------------------------------------------
+        | SHOW SLIDE
+        |--------------------------------------------------------------------------
+        */
+
+        function showSlide(slideIndex){
+
+            rows.forEach(row => {
+                row.style.display = 'none';
+            });
+
+            const start = slideIndex * rowsPerSlide;
+
+            const end = start + rowsPerSlide;
+
+            filteredRows.slice(start, end).forEach(row => {
+                row.style.display = '';
+            });
+
         }
 
-    });
+        /*
+        |--------------------------------------------------------------------------
+        | INITIAL
+        |--------------------------------------------------------------------------
+        */
 
-</script>
+        showSlide(currentSlide);
+
+        /*
+        |--------------------------------------------------------------------------
+        | NEXT
+        |--------------------------------------------------------------------------
+        */
+
+        document.getElementById('nextSlide')
+            .addEventListener('click', () => {
+
+                const totalSlides = Math.ceil(filteredRows.length / rowsPerSlide);
+
+                currentSlide++;
+
+                if(currentSlide >= totalSlides){
+                    currentSlide = 0;
+                }
+
+                showSlide(currentSlide);
+
+            });
+
+        /*
+        |--------------------------------------------------------------------------
+        | PREV
+        |--------------------------------------------------------------------------
+        */
+
+        document.getElementById('prevSlide')
+            .addEventListener('click', () => {
+
+                const totalSlides = Math.ceil(filteredRows.length / rowsPerSlide);
+
+                currentSlide--;
+
+                if(currentSlide < 0){
+                    currentSlide = totalSlides - 1;
+                }
+
+                showSlide(currentSlide);
+
+            });
+
+        /*
+        |--------------------------------------------------------------------------
+        | SEARCH
+        |--------------------------------------------------------------------------
+        */
+
+        searchInput.addEventListener('keyup', function(){
+
+            const keyword = this.value.toLowerCase();
+
+            filteredRows = rows.filter(row => {
+
+                return row.innerText.toLowerCase().includes(keyword);
+
+            });
+
+            currentSlide = 0;
+
+            showSlide(currentSlide);
+
+        });
+
+    </script>
 
 </body>
 </html>

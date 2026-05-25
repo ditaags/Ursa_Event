@@ -1,0 +1,147 @@
+/* ============================================================
+   1. BASE STYLE & HALAMAN LIST (SEMUA EVENT)
+   ============================================================ */
+.events-page-container {
+    max-width: 1000px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+.events-list-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* Kartu Utama (Default: Horizontal untuk List) */
+.event-item-card, .event-card {
+    display: flex;
+    background: #ffffff;
+    border-radius: 24px;
+    overflow: hidden;
+    text-decoration: none;
+    color: #1a1a1a;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1px solid rgba(0,0,0,0.02);
+}
+
+.event-item-card:hover, .event-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 50px rgba(230, 57, 70, 0.1);
+}
+
+/* Poster untuk Halaman List */
+.event-item-poster, .event-card-image {
+    flex: 0 0 300px;
+    position: relative;
+    overflow: hidden;
+}
+
+.event-item-poster img, .event-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top; /* Agar poster event tidak kepotong kepalanya */
+    display: block;
+}
+
+/* Detail untuk Halaman List */
+.event-item-details, .event-card-body {
+    flex: 1;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* ============================================================
+   2. KHUSUS DASHBOARD SLIDER (REKOMENDASI EVENT)
+   ============================================================ */
+.event-slider .event-card {
+    flex-direction: column; /* Gambar di atas, teks di bawah */
+    min-width: 300px;
+    height: auto;
+}
+
+.event-slider .event-card-image {
+    flex: none; /* Matikan flex-basis 300px dari style list */
+    width: 100%;
+    height: 200px; /* Tinggi kotak poster di slider */
+}
+
+.event-slider .event-card-body {
+    padding: 20px;
+}
+
+.event-slider .event-card-body h3 {
+    font-size: 18px;
+    margin-bottom: 8px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* ============================================================
+   3. RESPONSIVE (MOBILE) - VERSI OPTIMAL URSA EVENT
+   ============================================================ */
+@media (max-width: 768px) {
+    .events-page-container {
+        margin: 30px auto;
+        padding: 0 15px;
+    }
+
+    /* List Wrapper agar lebih rapat */
+    .events-list-wrapper {
+        gap: 15px;
+    }
+
+    /* KUNCI: Membuat kartu menjadi horizontal yang ringkas */
+    .event-item-card, .event-card {
+        flex-direction: row !important; /* Gambar di kiri, teks di kanan */
+        padding: 10px !important;
+        gap: 15px !important;
+        border-radius: 16px !important;
+        align-items: center !important;
+        min-height: 120px; /* Batasi tinggi agar tidak memanjang */
+    }
+
+    /* Ukuran gambar poster di HP (Kiri) */
+    .event-item-poster, .event-card-image {
+        flex: 0 0 100px !important; /* Lebar poster tetap 100px */
+        height: 120px !important;   /* Tinggi poster tetap 120px */
+        border-radius: 12px !important;
+    }
+
+    /* Detail Teks (Kanan) */
+    .event-item-details, .event-card-body {
+        padding: 0 !important; /* Hapus padding besar desktop */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    /* Penyesuaian ukuran teks agar proporsional */
+    .event-item-details h3, .event-card-body h3 {
+        font-size: 16px !important; /* Ukuran judul lebih pas */
+        line-height: 1.3;
+        margin-bottom: 5px !important;
+        display: -webkit-box;
+        -webkit-line-clamp: 2; /* Maksimal 2 baris agar tidak kepanjangan */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    /* Jika ada info tanggal/lokasi di bawah h3 */
+    .event-item-details p, .event-card-body p {
+        font-size: 12px !important;
+        color: #666;
+        margin: 0 !important;
+    }
+
+    /* Matikan efek hover yang berat di mobile */
+    .event-item-card:hover, .event-card:hover {
+        transform: none !important;
+    }
+}

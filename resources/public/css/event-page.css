@@ -1,0 +1,147 @@
+/* Container Utama */
+.events-page-container {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 0 5%; 
+}
+
+/* 1. Perbaikan Spacing Header (Agar tidak mepet sub-judul) */
+.events-header {
+    margin-bottom: 40px; /* Tambahkan ini agar ada jarak ke kartu pertama */
+    padding: 0 10px;
+}
+
+.events-header h1 {
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 15px; /* Jarak antara judul dan sub-judul */
+}
+
+.events-header p {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+/* Grid System */
+.events-list-wrapper {
+    display: flex;
+    flex-direction: column; 
+    gap: 30px; 
+    width: 100%;
+}
+
+.event-item-card {
+    display: flex;
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.event-item-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(185, 28, 28, 0.08);
+}
+
+.event-item-poster {
+    flex: 1;
+    max-width: 350px;
+}
+
+.event-item-poster img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.event-item-details {
+    flex: 2;
+    padding: 30px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* 2. RESPONSIVE ADJUSTMENT (< 768px) */
+@media (max-width: 768px) {
+    .events-page-container {
+        margin: 30px auto; /* Kurangi margin atas di mobile */
+    }
+
+    .events-header {
+        margin-bottom: 30px; /* Jarak antara teks header dan card pertama */
+        text-align: left;
+    }
+
+    .events-header h1 {
+        font-size: 26px; /* Perkecil sedikit di mobile */
+    }
+
+    /* Ubah arah kartu menjadi vertikal di mobile */
+    .event-item-card {
+        flex-direction: column;
+    }
+
+    .event-item-poster {
+        max-width: 100%; /* Gambar ambil lebar penuh */
+        height: 250px; /* Batasi tinggi gambar agar tidak terlalu panjang */
+    }
+
+    .event-item-details {
+        padding: 20px; /* Kurangi padding dalam agar tidak sempit */
+    }
+
+    .event-item-title {
+        font-size: 18px;
+    }
+
+    .event-item-meta {
+        flex-wrap: wrap; /* Supaya meta info tidak keluar layar */
+        gap: 10px;
+        font-size: 13px;
+    }
+}
+
+.event-item-title {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    line-height: 1.3;
+}
+
+.event-item-meta {
+    margin-bottom: 15px;
+    display: flex;
+    gap: 20px;
+    font-weight: 600;
+}
+
+.meta-price {
+    color: #b91c1c;
+}
+
+.event-item-excerpt {
+    color: #666;
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.event-item-footer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: #888;
+}
+
+.mini-logo {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+}
