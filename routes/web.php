@@ -83,6 +83,7 @@ Route::middleware(['auth', 'admin.only'])->group(function () {
     Route::post('/admin/update-beranda', [HomeController::class, 'update'])->name('admin.update_beranda');
     Route::get('/admin/edit-kontak', [HomeController::class, 'editContact'])->name('admin.edit_kontak');
     Route::post('/admin/update-kontak', [HomeController::class, 'updateContact'])->name('admin.update_kontak');
+    Route::get('/admin/dashboard', [HomeController::class, 'index'])->name('admin.dashboard');
 
     // Route Event (Gunakan resource agar lebih simpel)
     Route::resource('/admin/events', EventController::class)->names('admin.events');

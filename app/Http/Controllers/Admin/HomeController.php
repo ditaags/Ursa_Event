@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Models\Event;
+use App\Models\User;
 
 class HomeController extends Controller
 {
@@ -12,6 +15,62 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->path = storage_path('app/content/');
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | DASHBOARD ADMIN
+    |--------------------------------------------------------------------------
+    */
+
+    public function index()
+    {
+        // Menghitung seluruh event
+        $totalEvent = Event::count();
+
+        // Menghitung event dengan status aktif
+        $eventAktif = Event::where('status', 'aktif')->count();
+
+        // Menghitung seluruh pengguna dari semua level
+        $totalPengguna = User::count();
+
+        /*
+        |--------------------------------------------------------------------------
+        | DATA GRAFIK PENDAPATAN TIKET
+        |--------------------------------------------------------------------------
+        */
+
+        $chart = DB::table('transaksis')
+            ->join(
+                'tikets',
+                'transaksis.id_tiket',
+                '=',
+                'tikets.id'
+            )
+            ->whereIn('transaksis.status', [
+                'aktif',
+                'expired'
+            ])
+            ->select(
+                'tikets.nama_tiket',
+                DB::raw(
+                    'SUM(transaksis.sub_total) as total_pendapatan'
+                )
+            )
+            ->groupBy('tikets.nama_tiket')
+            ->get();
+
+        // Label dan nilai grafik
+        $chartLabels = $chart->pluck('nama_tiket');
+        $chartData = $chart->pluck('total_pendapatan');
+
+        return view('admin.dashboard', compact(
+            'totalEvent',
+            'eventAktif',
+            'totalPengguna',
+            'chartLabels',
+            'chartData'
+        ));
     }
 
     /*
@@ -40,7 +99,7 @@ class HomeController extends Controller
 
         /*
         |--------------------------------------------------------------------------
-        | Simpan File TXT
+        | SIMPAN FILE TXT
         |--------------------------------------------------------------------------
         */
 
@@ -61,31 +120,31 @@ class HomeController extends Controller
 
         /*
         |--------------------------------------------------------------------------
-        | Upload Hero Image
+        | UPLOAD HERO IMAGE
         |--------------------------------------------------------------------------
         */
 
         if ($request->hasFile('image')) {
 
-    $file = $request->file('image');
+            $file = $request->file('image');
 
-    // lokasi folder
-    $destination = public_path('images');
+            // Lokasi folder
+            $destination = public_path('images');
 
-    // nama file tetap
-    $filename = 'gedung.png';
+            // Nama file tetap
+            $filename = 'gedung.png';
 
-    // path file lama
-    $oldFile = $destination . '/' . $filename;
+            // Path file lama
+            $oldFile = $destination . '/' . $filename;
 
-    // hapus file lama jika ada
-    if (file_exists($oldFile)) {
-        unlink($oldFile);
-    }
+            // Hapus file lama jika ada
+            if (file_exists($oldFile)) {
+                unlink($oldFile);
+            }
 
-    // simpan file baru dengan nama tetap
-    $file->move($destination, $filename);
-}
+            // Simpan file baru dengan nama tetap
+            $file->move($destination, $filename);
+        }
 
         return redirect()
             ->back()
@@ -101,7 +160,6 @@ class HomeController extends Controller
     public function editContact()
     {
         $contact = (object)[
-
             'alamat' => $this->readFile('alamat.txt'),
             'linkalamat' => $this->readFile('linkalamat.txt'),
 
