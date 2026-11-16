@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -109,6 +110,7 @@
                                 <th>Kategori</th>
                                 <th>Status</th>
                                 <th>Harga</th>
+                                <th>Pajak</th>
                                 <th>Tanggal</th>
                             </tr>
 
@@ -141,6 +143,10 @@
 
                                     <td>
                                         Rp {{ number_format($transaksi->harga, 0, ',', '.') }}
+                                    </td>
+
+                                    <td>
+                                        Rp {{ number_format($transaksi->harga * 0.11, 0, ',', '.') }}
                                     </td>
 
                                     <td>
@@ -196,6 +202,7 @@
                             <tr>
                                 <th>Nama Tiket</th>
                                 <th>Pendapatan</th>
+                                <th>Pajak</th>
                                 <th>Tanggal</th>
                             </tr>
 
@@ -216,6 +223,10 @@
                                     </td>
 
                                     <td>
+                                        Rp {{ number_format($finance->pendapatan * 0.11, 0, ',', '.') }}
+                                    </td>
+
+                                    <td>
                                         {{ date('d-m-Y', strtotime($finance->tanggal)) }}
                                     </td>
 
@@ -225,7 +236,7 @@
 
                                 <tr>
 
-                                    <td colspan="3" class="empty-data">
+                                    <td colspan="4" class="empty-data">
                                         Data finance belum tersedia
                                     </td>
 
@@ -340,11 +351,7 @@
                 plugins: {
 
                     legend: {
-
-                        labels: {
-                            color: '#111111'
-                        }
-
+                        display: false
                     }
 
                 },

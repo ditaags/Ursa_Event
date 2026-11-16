@@ -1,6 +1,50 @@
+
 @extends('admin_master')
 
 @section('content')
+
+<style>
+    /* ==============================
+       GRAFIK PENDAPATAN TIKET
+    ============================== */
+
+    .chart-section {
+        width: 100%;
+        margin-top: 30px;
+    }
+
+    .chart-section .section-title {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 30px;
+        color: #111111;
+    }
+
+    .chart-container {
+        position: relative;
+        width: 100%;
+        height: 525px;
+        padding: 30px;
+        background: #ffffff;
+        border: 1px solid #eeeeee;
+        border-radius: 30px;
+        box-sizing: border-box;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+    }
+
+    .chart-container canvas {
+        width: 100% !important;
+        height: 100% !important;
+    }
+
+    @media (max-width: 768px) {
+        .chart-container {
+            height: 400px;
+            padding: 15px;
+            border-radius: 20px;
+        }
+    }
+</style>
 
 <div class="dashboard-wrapper">
 
@@ -67,6 +111,7 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
+
     const ctx = document.getElementById('ticketChart');
 
     const chartLabels = @json($chartLabels);
@@ -140,13 +185,11 @@
 
             plugins: {
 
-                legend: {
-                    labels: {
-                        color: '#111111'
-                    }
-                }
+    legend: {
+        display: false
+    }
 
-            },
+},
 
             scales: {
 
@@ -155,8 +198,11 @@
                     beginAtZero: true,
 
                     ticks: {
+
                         precision: 0,
+
                         color: '#111111'
+
                     },
 
                     grid: {
@@ -182,6 +228,7 @@
         }
 
     });
+
 </script>
 
 @endsection
